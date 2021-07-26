@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Create a new SSH key
+function ssh_key_create() {
+  if (( $# == 1)); then
+    ssh-keygen -t ed25519 -C "$1"
+  else
+    echo "No email was supplied, creating without -C flag..."
+    ssh-keygen -t ed25519
+  fi
+}
+
+# Local port forwarding from a remote port to your local machine
+function localpf() {
+  if (( $# == 3 )); then
+    ssh -N -L $2:127.0.0.1:$1 $3 -v -v
+  else
+    echo "Usage: localpf [REMOTE_PORT] [LOCAL_PORT] [SSH_CONNECTION]"
+    echo ""
+    echo "You need to provide 3 arguments: "
+    echo "  REMOTE_PORT    - The remote port that you wish to connect to"
+    echo "  LOCAL_PORT     - The local port to access REMOTE_PORT from"
+    echo "  SSH_CONNECTION - Host connection in SSH config / manual specifications"
+  fi
+}
+
+# Kill a process running on given port
+function killport() {
+  if (( $# == 1 )); then
+    sudo kill -9 $(sudo lsof -t -i:"$1")
+  else
+    echo "Usage: killport [PORT_NUMBER]"
+    echo ""
+    echo "You need to provide 1 argument: "
+    echo "  PORT_NUMBER - The port which has a running process you want to clear"
+  fi
+}

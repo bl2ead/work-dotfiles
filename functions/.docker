@@ -1,0 +1,23 @@
+#!/bin/bash
+
+function docker_rm() {
+  echo "WARNING: This will stop and remove ALL containers by running the following commands:"
+  echo "    \$ docker stop \$(docker ps -a -q)" 
+  echo "    \$ docker rm \$(docker ps -a -q)" 
+  echo "are you sure you wish to proceed? (y/n) "
+  read answer
+  if [[ "$answer" == "y" ]]; then
+    docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
+  fi
+}
+
+function docker_prune() {
+  echo "WARNING: This will remove all unused volumes and containers by running the following commands:"
+  echo "    \$ docker system prune -f" 
+  echo "    \$ docker volume prune -f" 
+  echo "are you sure you wish to proceed? (y/n) "
+  read answer
+  if [[ "$answer" == "y" ]]; then
+    docker system prune -f && docker volume prune -f
+  fi
+}
