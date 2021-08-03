@@ -43,5 +43,6 @@ casks=(
     adoptopenjdk11
     adoptopenjdk13
     robo-3t
+    google-cloud-sdk
 )
 brew install --cask "${casks[@]}"
