@@ -9,13 +9,5 @@ DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 xcode-select --install
 
 # Install tools
-installList=(
-  brew
-  dmg
-  nvm
-  fvm
-)
-for item in "${installList[@]}"
-do
-  . "$DOTFILES_DIR/install/${item}.sh"
-done
+. "$DOTFILES_DIR/install/brew.sh"
+. "$DOTFILES_DIR/install/dmg.sh"
